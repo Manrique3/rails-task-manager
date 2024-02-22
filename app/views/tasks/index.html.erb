@@ -1,0 +1,16 @@
+<h1>List of Tasks</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= form_with(model: task, url: task_path(task), method: :patch, local: true) do |form| %>
+        <%= form.check_box :completed, { class: 'task-checkbox', onchange: 'this.form.submit()' } %>
+        <%= task.title %>
+      <% end %>
+      <%= link_to "Delete", task_path(task), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
