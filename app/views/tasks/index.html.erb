@@ -3,12 +3,9 @@
 <ul>
   <% @tasks.each do |task| %>
     <li>
-      <%= form_with(model: task, url: task_path(task), method: :patch, local: true) do |form| %>
-        <%= form.check_box :completed, { class: 'task-checkbox', onchange: 'this.form.submit()' } %>
-        <%= task.title %>
-      <% end %>
-      <%= link_to "Delete", task_path(task), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
-
+      <%= check_box_tag "task_ids[]", task.id, task.completed, class: 'task-checkbox', onchange: 'this.form.submit()' %>
+      <%= link_to task.title, task_path(task) %>
+      <%= link_to "Delete", task_path(task), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, method: :delete, style: 'margin-left: 10px;' %>
     </li>
   <% end %>
 </ul>
